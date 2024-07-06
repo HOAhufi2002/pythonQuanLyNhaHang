@@ -7,7 +7,7 @@ import decimal
 class PaymentsTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Thanh toán')
+        tabControl.add(self.frame, text='payment amount')
         self.create_widgets()
         self.load_payments()
 

@@ -10,8 +10,8 @@ from tabs.discounts import DiscountsTab
 from tabs.reports import ReportsTab
 from tabs.kitchen import KitchenTab
 from tabs.menu import MenuTab
-from tabs.order_placement import OrderPlacementTab  # Import tab mới
 from tabs.statistics import StatisticsTab  # Import tab mới
+from tabs.order_placement import OrderPlacementTab  # Import tab mới
 
 class LoginRegisterFrame(ttk.Frame):
     def __init__(self, parent, on_login_success):
@@ -26,8 +26,8 @@ class LoginRegisterFrame(ttk.Frame):
         self.login_frame = ttk.Frame(self.notebook, style="Custom.TFrame")
         self.register_frame = ttk.Frame(self.notebook, style="Custom.TFrame")
         
-        self.notebook.add(self.login_frame, text='Đăng nhập')
-        self.notebook.add(self.register_frame, text='Đăng ký')
+        self.notebook.add(self.login_frame, text='Login')
+        self.notebook.add(self.register_frame, text='Register')
 
         self.create_login_widgets()
         self.create_register_widgets()
@@ -53,15 +53,15 @@ class LoginRegisterFrame(ttk.Frame):
         login_form_frame = ttk.Frame(self.login_frame, style='Custom.TFrame')
         login_form_frame.grid(row=1, column=1, rowspan=4, padx=20, pady=20)
 
-        ttk.Label(login_form_frame, text="Tên đăng nhập:", font=('Helvetica', 12), background='white').grid(row=0, column=0, padx=10, pady=10)
+        ttk.Label(login_form_frame, text="Username:", font=('Helvetica', 12), background='white').grid(row=0, column=0, padx=10, pady=10)
         self.login_username = ttk.Entry(login_form_frame, font=('Helvetica', 12))
         self.login_username.grid(row=0, column=1, padx=10, pady=10)
 
-        ttk.Label(login_form_frame, text="Mật khẩu:", font=('Helvetica', 12), background='white').grid(row=1, column=0, padx=10, pady=10)
+        ttk.Label(login_form_frame, text="Password:", font=('Helvetica', 12), background='white').grid(row=1, column=0, padx=10, pady=10)
         self.login_password = ttk.Entry(login_form_frame, show="*", font=('Helvetica', 12))
         self.login_password.grid(row=1, column=1, padx=10, pady=10)
 
-        self.login_button = ttk.Button(login_form_frame, text="Đăng nhập", command=self.check_login)
+        self.login_button = ttk.Button(login_form_frame, text="Login", command=self.check_login)
         self.login_button.grid(row=2, columnspan=2, padx=10, pady=20)
 
         self.login_message = ttk.Label(login_form_frame, text="", font=('Helvetica', 10), foreground='red', background='white')
@@ -79,11 +79,11 @@ class LoginRegisterFrame(ttk.Frame):
         register_form_frame = ttk.Frame(self.register_frame, style='Custom.TFrame')
         register_form_frame.pack(padx=20, pady=20)
 
-        ttk.Label(register_form_frame, text="Tên đăng nhập:", font=('Helvetica', 12), background='white').grid(row=0, column=0, padx=10, pady=10)
+        ttk.Label(register_form_frame, text="Username:", font=('Helvetica', 12), background='white').grid(row=0, column=0, padx=10, pady=10)
         self.register_username = ttk.Entry(register_form_frame, font=('Helvetica', 12))
         self.register_username.grid(row=0, column=1, padx=10, pady=10)
 
-        ttk.Label(register_form_frame, text="Mật khẩu:", font=('Helvetica', 12), background='white').grid(row=1, column=0, padx=10, pady=10)
+        ttk.Label(register_form_frame, text="Password:", font=('Helvetica', 12), background='white').grid(row=1, column=0, padx=10, pady=10)
         self.register_password = ttk.Entry(register_form_frame, show="*", font=('Helvetica', 12))
         self.register_password.grid(row=1, column=1, padx=10, pady=10)
 
@@ -95,7 +95,7 @@ class LoginRegisterFrame(ttk.Frame):
         self.register_email = ttk.Entry(register_form_frame, font=('Helvetica', 12))
         self.register_email.grid(row=3, column=1, padx=10, pady=10)
 
-        self.register_button = ttk.Button(register_form_frame, text="Đăng ký", command=self.register_user)
+        self.register_button = ttk.Button(register_form_frame, text="Register", command=self.register_user)
         self.register_button.grid(row=4, columnspan=2, padx=10, pady=20)
 
         self.register_message = ttk.Label(register_form_frame, text="", font=('Helvetica', 10), foreground='green', background='white')
@@ -106,7 +106,7 @@ class LoginRegisterFrame(ttk.Frame):
         password = self.login_password.get()
         user_role, account_id = self.authenticate(username, password)
         if user_role:
-            self.on_login_success(user_role, account_id)
+            self.on_login_success(user_role, account_id, username)
         else:
             self.login_message.config(text="Thông tin đăng nhập không hợp lệ, vui lòng thử lại.")
 
@@ -149,8 +149,21 @@ class HorizonApp(tk.Tk):
         self.login_frame = LoginRegisterFrame(self, self.on_login_success)
         self.login_frame.pack(expand=True, fill="both")
 
-    def on_login_success(self, user_role, account_id):
+    def on_login_success(self, user_role, account_id, username):
         self.login_frame.pack_forget()
+        self.username = username
+        self.create_main_interface(user_role, account_id)
+
+    def create_main_interface(self, user_role, account_id):
+        self.header_frame = ttk.Frame(self)
+        self.header_frame.pack(fill='x')
+        
+        self.username_label = ttk.Label(self.header_frame, text=f"Chào, {self.username}", font=('Helvetica', 12))
+        self.username_label.pack(side='left', padx=10, pady=10)
+        
+        self.logout_button = ttk.Button(self.header_frame, text="Đăng xuất", command=self.logout)
+        self.logout_button.pack(side='right', padx=10, pady=10)
+
         self.tabControl = ttk.Notebook(self)
         self.tabControl.pack(expand=1, fill="both")
         self.create_tabs(user_role, account_id)
@@ -164,9 +177,13 @@ class HorizonApp(tk.Tk):
             self.kitchen_tab = KitchenTab(self.tabControl)
             self.menu_tab = MenuTab(self.tabControl)
             self.statistics_tab = StatisticsTab(self.tabControl)  # Thêm tab thống kê
-
         self.orders_tab = OrdersTab(self.tabControl)
         self.order_placement_tab = OrderPlacementTab(self.tabControl, account_id, self.orders_tab)  # Thêm tab mới
+
+    def logout(self):
+        self.header_frame.pack_forget()
+        self.tabControl.pack_forget()
+        self.show_login()
 
 if __name__ == "__main__":
     app = HorizonApp()

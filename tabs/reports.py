@@ -6,7 +6,7 @@ from utils.db import get_db_connection
 class ReportsTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Báo cáo')
+        tabControl.add(self.frame, text='Reports')
         self.create_widgets()
         self.load_reports()
 

@@ -7,7 +7,7 @@ from tabs.orders import OrdersTab
 class AccountsTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Tài khoản')
+        tabControl.add(self.frame, text='ACcount')
         self.create_widgets()
         self.load_accounts()
 

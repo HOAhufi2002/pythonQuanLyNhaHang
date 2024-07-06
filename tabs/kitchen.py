@@ -6,7 +6,7 @@ from utils.db import get_db_connection
 class KitchenTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Bếp')
+        tabControl.add(self.frame, text='Kitchen Function')
         self.create_widgets()
         self.load_kitchen_tasks()
 

@@ -10,7 +10,7 @@ class OrderPlacementTab:
         self.account_id = account_id  # Lưu trữ ID tài khoản
         self.orders_tab = orders_tab  # Tham chiếu đến OrdersTab để làm mới
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Đặt hàng')
+        tabControl.add(self.frame, text='Order_placement')
         self.create_widgets()
         self.load_menu_items()
 

@@ -8,7 +8,7 @@ import csv
 class OrdersTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Đơn hàng')
+        tabControl.add(self.frame, text='orders')
         self.create_widgets()
         self.load_orders()
 

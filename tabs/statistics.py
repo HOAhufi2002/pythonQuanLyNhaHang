@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 class StatisticsTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Thống kê')
+        tabControl.add(self.frame, text='Statics')
         self.create_widgets()
 
     def create_widgets(self):

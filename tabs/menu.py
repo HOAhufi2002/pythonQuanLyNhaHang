@@ -7,7 +7,7 @@ import decimal
 class MenuTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Thực đơn')
+        tabControl.add(self.frame, text='Menu Food')
         self.create_widgets()
         self.load_menu_items()
 

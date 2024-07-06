@@ -6,7 +6,7 @@ import decimal
 class DiscountsTab:
     def __init__(self, tabControl):
         self.frame = ttk.Frame(tabControl)
-        tabControl.add(self.frame, text='Ưu đãi')
+        tabControl.add(self.frame, text='Discounts')
         self.create_widgets()
         self.load_discounts()
 
